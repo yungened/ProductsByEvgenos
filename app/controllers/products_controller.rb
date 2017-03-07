@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   load_and_authorize_resource
 
 
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id]).destroy
 
-    redirect_to admin_path
+    redirect_to root_path
   end
 
   def index

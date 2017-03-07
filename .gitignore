@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+.idea/*
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -15,4 +16,4 @@
 
 # Ignore Byebug command history file.
 .byebug_history
-.idea/
+

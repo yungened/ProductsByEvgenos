@@ -1,9 +1,26 @@
-- @products.each do |product|
-  row
-  .col-xs-6.col-lg-4
-    = image_tag product.image.url(:medium)
-    h2
-      = link_to product.title, product_path(product)
-      | , Price:
-      = product.price
+.row
+  = render 'layouts/shared/design/sidebar'
+  .col-md-9
+    = render 'layouts/shared/design/carousel'
+    - @products.each do |product|
+      .col-sm-4.col-lg-4.col-md-4
+        .thumbnail
+          img alt="" src="http://placehold.it/320x150"
+          .caption
+            h4.pull-right
+              = product.price
+            h4
+              = link_to product.title, product_path(product)
+            p
+              = product.description
+          .ratings
+            p.pull-right 15 reviews
+            p
+              span.glyphicon.glyphicon-star
+              span.glyphicon.glyphicon-star
+              span.glyphicon.glyphicon-star
+              span.glyphicon.glyphicon-star
+              span.glyphicon.glyphicon-star
+
+
 

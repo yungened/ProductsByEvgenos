@@ -6,27 +6,30 @@ nav.navbar.navbar-fixed-top.navbar-inverse
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand href="#{root_path}"  Project name
+      a.navbar-brand.glyphicon.glyphicon-hand-right href="#{root_path}"  ProductsByEvgenos
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav
-        li.active
-          a href="#{root_path}"  Home
+        li class=("#{ 'active' if current_page?(root_path) }")
+          a.glyphicon.glyphicon-home href="#{root_path}"  Home
 
         - if current_user
           - if current_user.has_role?(:admin)
-            li
-              a href="#{admin_path}" Admin Page
+            li class=("#{ 'active' if current_page?(admin_path) }")
+              a.glyphicon.glyphicon-lock href="#{admin_path}"  AdminPage
       ul.nav.navbar-nav.navbar-right
         - if current_user
-          li class=("#{ 'active' if current_page?(edit_user_registration_path) }")
-            = link_to ' ' + current_user.email, edit_user_registration_path, class: 'glyphicon glyphicon-user'
-          li
-            = link_to ' Logout', destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out'
+          li.dropdown class=("#{ 'active' if current_page?(edit_user_registration_path) }")
+            a.dropdown-toggle.glyphicon.glyphicon-user aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+              |  Profile
+              span.caret
+            ul.dropdown-menu
+              li class=("#{ 'active' if current_page?(edit_user_registration_path) }")
+                = link_to ' ' + current_user.email, edit_user_registration_path, class: 'glyphicon glyphicon-user'
+              li.divider role="separator"
+              li
+                = link_to ' Logout', destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out'
         - else
           li class=("#{'active' if current_page?(new_user_registration_path)}")
             = link_to ' SignUp', new_user_registration_path, class: 'glyphicon glyphicon-registration-mark'
           li class=("#{'active' if current_page?(new_user_session_path)}")
             = link_to ' Login', new_user_session_path, class: 'glyphicon glyphicon-log-in'
-br
-br
-br
