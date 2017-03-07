@@ -1,0 +1,11 @@
+= @product.title
+br
+= image_tag @product.image.url(:large)
+br
+= @product.description
+br
+= @product.price
+- if current_user
+  - if current_user.has_role?(:admin)
+    = link_to 'Edit ', edit_product_path(@product), :class => 'btn btn-primary'
+    = link_to ' Delete', product_path(@product), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
