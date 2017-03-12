@@ -1,0 +1,14 @@
+- provide(:title, 'Add category')
+h1 style='text-align: center' Add category
+= form_for :category, html: { multipart: true }, url: categories_path(@category) do |f|
+  - if @category.errors.any?
+    - @category.errors.full_messages.each do |msg|
+      div.alert.alert-danger
+        p
+          = msg
+
+  p
+    = f.label :title
+    = f.text_field :title, :class => 'form-control'
+  p
+    = f.submit :Add, { :class => 'btn btn-default' }

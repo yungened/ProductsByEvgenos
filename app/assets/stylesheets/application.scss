@@ -16,4 +16,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.thumbnail > img,
+.thumbnail a > img {
+  display: block;
+  max-width: 100%;
+  height: 170px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-large {
+  height: 400px !important;
+}
+
 

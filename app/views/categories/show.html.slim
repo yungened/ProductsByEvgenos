@@ -1,6 +1,7 @@
-- provide(:title, 'Products by Evgenos')
+- provide(:title, @category.title)
+p.lead style="text-align: center;"
+  = @category.title
 .col-md-9
-  = render 'layouts/shared/design/carousel'
   - @products.each do |product|
     a href="#{product_path(product)}"
       .col-sm-4.col-lg-4.col-md-4
@@ -21,6 +22,4 @@
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
-
-
 

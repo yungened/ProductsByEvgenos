@@ -1,0 +1,14 @@
+- provide(:title, 'Edit category')
+h1 Edit category
+= form_for :category, html: { multipart: true }, url: category_path(@category), method: :patch do |f|
+  - if @category.errors.any?
+    - @category.errors.full_messages.each do |msg|
+      div.alert.alert-danger
+        p
+          = msg
+
+  p
+    = f.label :title
+    = f.text_field :title, :class => 'form-control'
+  p
+    = f.submit :Save, { :class => 'btn btn-default' }

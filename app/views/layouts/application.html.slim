@@ -2,19 +2,21 @@ doctype html
 html
   head
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
-    title ProductsByEvgenos
+    title = full_title(yield(:title))
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    - if notice
-      .alert.alert-info
-        = notice
-    - if alert
-      .alert.alert-warning
-        = alert
-    = render 'layouts/nav'
     .container
-      = yield
+      - if notice
+        .alert.alert-info
+          = notice
+      - if alert
+        .alert.alert-warning
+          = alert
+      = render 'layouts/nav'
+      .row
+        = render 'layouts/shared/design/sidebar'
+        = yield
     = render 'layouts/footer'
 

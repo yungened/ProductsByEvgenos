@@ -1,11 +1,41 @@
-= @product.title
-br
-= image_tag @product.image.url(:large)
-br
-= @product.description
-br
-= @product.price
-- if current_user
-  - if current_user.has_role?(:admin)
-    = link_to 'Edit ', edit_product_path(@product), :class => 'btn btn-primary'
-    = link_to ' Delete', product_path(@product), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
+- provide(:title, @product.title)
+
+.col-md-9
+  .thumbnail
+    img.img-responsive.img-large alt="" src="#{@product.image.url(:large)}"
+    .caption-full
+      h4.pull-right
+        = @product.price
+      h4
+        = @product.title
+      p
+        = @product.description
+    .ratings
+      p.pull-right 3 reviews
+      p
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star-empty
+        | 4.0 stars
+
+  - if current_user
+    - if current_user.has_role?(:admin)
+      = link_to 'Edit ', edit_product_path(@product), :class => 'btn btn-primary'
+      = link_to ' Delete', product_path(@product), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
+  .well
+    .text-right
+      a.btn.btn-success Leave a Review
+    hr
+    .row
+      .col-md-12
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-star-empty
+        | Anonymous
+        span.pull-right 10 days ago
+        p This product was great in terms of quality. I would definitely buy another!
+    hr
