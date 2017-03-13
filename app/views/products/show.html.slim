@@ -5,9 +5,11 @@
     img.img-responsive.img-large alt="" src="#{@product.image.url(:large)}"
     .caption-full
       h4.pull-right
-        = @product.price
+        = number_to_currency @product.price
       h4
         = @product.title
+      h4.pull-right
+        = link_to '', cart_add_path(@product), class: 'glyphicon glyphicon-shopping-cart'
       p
         = @product.description
     .ratings

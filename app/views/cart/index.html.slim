@@ -1,0 +1,57 @@
+- provide(:title, 'Cart')
+h1 style='text-align: center;' Your cart
+
+- total = 0
+table#cart.table.table-hover.table-condensed
+  - @cart.each do |id, quantity|
+    - product = Product.find(id)
+    - total += product.price * quantity
+    thead
+      tr
+        th style="width:50%"  Product
+        th style="width:10%"  Price
+        th style="width:8%"  Quantity
+        th.text-center style="width:22%"  Subtotal
+        th style="width:10%"
+    tbody
+      tr
+        td data-th="Product"
+          .row
+            .col-sm-2.hidden-xs
+              a href="#{product_path(id)}"
+                img.img-responsive alt="..." src="#{product.image}" /
+            .col-sm-10
+              h4.nomargin
+                a href="#{product_path(id)}"
+                  = product.title
+              p
+                a href="#{product_path(id)}"
+                  = product.description
+        td data-th="Price"
+          a href="#{product_path(id)}"
+            = number_to_currency product.price
+        td data-th="Quantity"
+          = quantity
+        td.text-center data-th="Subtotal"
+          = number_to_currency product.price * quantity
+        td.actions data-th=""
+          = link_to '', cart_des_path(id), method: :delete, class: 'glyphicon glyphicon-trash', data: {confirm: 'Are you sure?'}
+
+  tfoot
+    tr.visible-xs
+      td.text-center
+        strong
+    tr
+      td
+        a.btn.btn-warning href="#{products_path}"
+          i.fa.fa-angle-left
+          | Continue Shopping
+      td.hidden-xs colspan="2"
+      td.hidden-xs.text-center
+        strong
+          = number_to_currency total
+      td
+        a.btn.btn-success.btn-block href="#"
+          | Checkout
+          i.fa.fa-angle-right
+
