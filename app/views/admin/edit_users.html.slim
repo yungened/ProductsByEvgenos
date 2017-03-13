@@ -1,0 +1,23 @@
+h1 style = 'text-align: center;' Users
+h2.sub-header
+  .table-responsive
+    table.table.table-striped
+      thead
+        thead
+          tr
+            th Email
+            th Role
+            th style='text-align:center;' Change role
+      tbody
+        - @users.each do |user|
+          tr
+            td
+              = user.email
+            td
+              = user.roles.first.name
+            td
+              = form_tag('/admin/' + user.id.to_s + '?role=admin', method: :put) do
+                input class='btn btn-primary' type='submit' value=('Make Admin')
+            td
+              = form_tag('/admin/' + user.id.to_s + '?role=user', method: :put) do
+                input class='btn btn-primary' type='submit' value=('Make User')

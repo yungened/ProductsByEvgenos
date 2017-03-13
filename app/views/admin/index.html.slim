@@ -1,3 +1,23 @@
 - provide(:title, 'Admin Page')
-= link_to 'Add product', new_product_path, class: 'btn btn-primary'
-= link_to 'Add category', new_category_path, class: 'btn btn-primary'
+.col-md-9
+  a href="#{edit_products_path}"
+    .col-sm-4.col-lg-4.col-md-4
+      .thumbnail
+        p.lead style="text-align: center;" Products
+        .caption
+          h4 style="text-align: center;"
+            = @products
+  a href="#{edit_categories_path}"
+    .col-sm-4.col-lg-4.col-md-4
+      .thumbnail
+        p.lead style="text-align: center;" Categories
+        .caption
+          h4 style="text-align: center;"
+            = @categories
+  a href="#{edit_users_path}"
+    .col-sm-4.col-lg-4.col-md-4
+      .thumbnail
+        p.lead style="text-align: center;" Users
+        .caption
+          h4 style="text-align: center;"
+            = @users

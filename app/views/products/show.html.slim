@@ -1,5 +1,5 @@
 - provide(:title, @product.title)
-
+= render 'layouts/shared/design/sidebar'
 .col-md-9
   .thumbnail
     img.img-responsive.img-large alt="" src="#{@product.image.url(:large)}"
@@ -21,7 +21,7 @@
         | 4.0 stars
 
   - if current_user
-    - if current_user.has_role?(:admin)
+    - if current_user.has_role?(:admin) || current_user.has_role?(:moderator)
       = link_to 'Edit ', edit_product_path(@product), :class => 'btn btn-primary'
       = link_to ' Delete', product_path(@product), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
   .well

@@ -9,19 +9,21 @@ h1 style='text-align: center' Add product
 
   p
     = f.label :image
-    = f.file_field :image, :class => 'form-control'
+    = f.file_field :image, class: 'form-control'
   p
-    = f.select(:category_id) do
+    = f.label :categories
+    br
+    = f.select(:category_id)  do
       - Category.all.each do |category|
         = content_tag(:option, category.title, value: category.id)
   p
     = f.label :title
-    = f.text_field :title, :class => 'form-control'
+    = f.text_field :title, class: 'form-control'
   p
     = f.label :description
-    = f.text_area :description, :class => 'form-control', rows: 5
+    = f.text_area :description, class: 'form-control', rows: 5
   p
     = f.label :price
-    = f.text_field :price, :class => 'form-control'
-  p
-    = f.submit :Add, { :class => 'btn btn-default' }
+    = f.text_field :price, class: 'form-control'
+  p style='text-align: center;'
+    = f.submit :Add, class: 'btn btn-primary'
