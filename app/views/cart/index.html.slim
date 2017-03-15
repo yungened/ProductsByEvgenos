@@ -24,17 +24,18 @@ table#cart.table.table-hover.table-condensed
               h4.nomargin
                 a href="#{product_path(id)}"
                   = product.title
-              p
-                a href="#{product_path(id)}"
-                  = product.description
+              .mycap
+                p
+                  a href="#{product_path(id)}"
+                    = product.description
         td data-th="Price"
-          a href="#{product_path(id)}"
-            = number_to_currency product.price
+          = number_to_currency product.price
         td data-th="Quantity"
-          = quantity
+          input.form-control.text-center type="number" value="#{quantity}"
         td.text-center data-th="Subtotal"
           = number_to_currency product.price * quantity
         td.actions data-th=""
+          = link_to '', cart_path, class: 'glyphicon glyphicon-refresh'
           = link_to '', cart_des_path(id), method: :delete, class: 'glyphicon glyphicon-trash', data: {confirm: 'Are you sure?'}
 
   tfoot

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'cart' => 'cart#index', as: 'cart'
   delete 'cart/:id' => 'cart#destroy', as: 'cart_des'
   get 'cart/add/:id' => 'cart#add', as: 'cart_add'
@@ -15,7 +14,9 @@ Rails.application.routes.draw do
 
 
   resources :categories
-  resources :products
+  resources :products do
+    resources :messages, only: [:new, :create, :destroy]
+  end
 
   root 'products#index'
 

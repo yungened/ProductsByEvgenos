@@ -23,6 +23,11 @@ body {
   overflow: hidden;
 }
 
+.mycap {
+  height: 60px;
+  overflow: hidden;
+}
+
 .caption h4 {
   white-space: nowrap;
 }
@@ -37,6 +42,11 @@ body {
   color: #d17581;
 }
 
+p {
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
 .thumbnail {
   padding: 0;
 }
@@ -44,6 +54,10 @@ body {
 .thumbnail .caption-full {
   padding: 9px;
   color: #333;
+}
+
+.glyphicon.glyphicon-remove {
+  opacity: 0.3;
 }
 
 footer {

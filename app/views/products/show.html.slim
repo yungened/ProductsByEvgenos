@@ -6,14 +6,15 @@
     .caption-full
       h4.pull-right
         = number_to_currency @product.price
-      h4
+      h4 style='text-align: center;'
         = @product.title
-      h4.pull-right
-        = link_to '', cart_add_path(@product), class: 'glyphicon glyphicon-shopping-cart'
       p
         = @product.description
+      h4.pull-right
+        = link_to '', cart_add_path(@product), class: 'glyphicon glyphicon-shopping-cart'
     .ratings
-      p.pull-right 3 reviews
+      p.pull-right
+        = "#{ @product.messages.size } reviews"
       p
         span.glyphicon.glyphicon-star
         span.glyphicon.glyphicon-star
@@ -26,18 +27,29 @@
     - if current_user.has_role?(:admin) || current_user.has_role?(:moderator)
       = link_to 'Edit ', edit_product_path(@product), :class => 'btn btn-primary'
       = link_to ' Delete', product_path(@product), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
+
   .well
     .text-right
-      a.btn.btn-success Leave a Review
-    hr
-    .row
-      .col-md-12
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star-empty
-        | Anonymous
-        span.pull-right 10 days ago
-        p This product was great in terms of quality. I would definitely buy another!
-    hr
+      = form_for([@product, @product.messages.build]) do |f|
+        = f.text_area :content, :rows => 4, :cols => 50, placeholder: 'Your review...', :class => 'form-control'
+        = f.submit :'Leave a Review', {:class => 'a btn btn-success'}
+    - @messages.each do |message|
+      hr
+      .row
+        .col-md-12
+          span.glyphicon.glyphicon-star
+          span.glyphicon.glyphicon-star
+          span.glyphicon.glyphicon-star
+          span.glyphicon.glyphicon-star
+          span.glyphicon.glyphicon-star-empty
+            = message.user.email
+          span.pull-right
+            = message.created_at.localtime.strftime('%d %b %Y %r ')
+            - if current_user.email == message.user.email || current_user.has_role?(:admin)
+              = link_to '', product_message_path(@product.id, message.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'glyphicon glyphicon-remove'
+          p
+            = message.content
+      hr
+
+div style='margin-left: 53%;'
+  = will_paginate @messages, renderer: BootstrapPagination::Rails, inner_window: 1

@@ -14,17 +14,18 @@
               = product.title
             p
               = product.description
-            h4.pull-right
-              = link_to '', cart_add_path(product), class: 'glyphicon glyphicon-shopping-cart'
           .ratings
-            p.pull-right 15 reviews
+            p.pull-right
+              = link_to '', cart_add_path(product), class: 'glyphicon glyphicon-shopping-cart'
+            p.pull-right
+              = "#{ product.messages.size } reviews"
             p
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
-div style='margin-left: 610px;'
+div style='margin-left: 53%;'
   = will_paginate @products, renderer: BootstrapPagination::Rails, inner_window: 1
 
 

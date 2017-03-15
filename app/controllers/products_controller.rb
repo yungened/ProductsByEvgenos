@@ -43,6 +43,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @messages = @product.messages.paginate(page: params[:page], per_page: 7)
   end
 
   private def product_params
