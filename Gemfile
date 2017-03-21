@@ -8,6 +8,8 @@ end
 ruby '2.4.0'
 
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 gem 'rails', '~> 5.0.2'
 gem 'will_paginate', '3.1.5'
 gem 'will_paginate-bootstrap'

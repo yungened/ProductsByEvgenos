@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
+
   belongs_to :category
   has_many :messages
   has_attached_file :image, styles: { large: "800x300>", medium: "320x150#"}

@@ -45,8 +45,9 @@
             = message.user.email
           span.pull-right
             = message.created_at.localtime.strftime('%d %b %Y %r ')
-            - if current_user.email == message.user.email || current_user.has_role?(:admin)
-              = link_to '', product_message_path(@product.id, message.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'glyphicon glyphicon-remove'
+            - if current_user
+              - if current_user.email == message.user.email || current_user.has_role?(:admin)
+                = link_to '', product_message_path(@product.id, message.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'glyphicon glyphicon-remove'
           p
             = message.content
       hr

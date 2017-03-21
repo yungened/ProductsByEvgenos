@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  enum status: [:active, :deleted, :banned]
+
   after_create :assign_role
 
   def assign_role

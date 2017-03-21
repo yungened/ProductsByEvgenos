@@ -1,5 +1,5 @@
 .col-md-3
-  p.lead Shop Name
+  p.lead Categories
   .list-group
     - Category.all.each do |category|
       = link_to category.title, category_path(category), class: 'list-group-item'

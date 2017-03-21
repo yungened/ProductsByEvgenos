@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   get 'admin/edit_products' => 'admin#edit_products', as: 'edit_products'
   get 'admin/edit_categories' => 'admin#edit_categories', as: 'edit_categories'
   get 'admin/edit_users' => 'admin#edit_users', as: 'edit_users'
+  get 'admin/banned/:id' => 'admin#banned', as: :banned_user
 
-  devise_for :users
-
+  devise_for :users, :controllers => { registrations: 'registrations' }
 
   resources :categories
   resources :products do

@@ -7,17 +7,29 @@ h2.sub-header
           tr
             th Email
             th Role
-            th style='text-align:center;' Change role
+            th
+            th Status
       tbody
         - @users.each do |user|
           tr
             td
               = user.email
+            - if user.has_role?(:user)
+              td
+                = form_tag('/admin/' + user.id.to_s + '?role=admin', method: :put) do
+                  input class='btn btn-primary' type='submit' value=('Make Admin')
+            - else
+              td
+                | This is admin
+              td
+                | Can`t banned
+            - unless user.has_role?(:admin)
+              td
+                - unless user.banned? || user.deleted?
+                  = link_to 'Ban', banned_user_path(user), class: 'btn btn-danger'
+                - else
+                  = link_to 'Allow', banned_user_path(user), class: 'btn btn-success'
             td
-              = user.roles.first.name
-            td
-              = form_tag('/admin/' + user.id.to_s + '?role=admin', method: :put) do
-                input class='btn btn-primary' type='submit' value=('Make Admin')
-            td
-              = form_tag('/admin/' + user.id.to_s + '?role=user', method: :put) do
-                input class='btn btn-primary' type='submit' value=('Make User')
+              = user.status
+div style='margin-left: 40%'
+  = will_paginate @users, renderer: BootstrapPagination::Rails, inner_window: 1

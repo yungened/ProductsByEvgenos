@@ -1,24 +1,79 @@
 - provide(:title, 'Admin Page')
-div style='margin-left: 20%'
-  .col-md-9
-    a href="#{edit_products_path}"
-      .col-sm-4.col-lg-4.col-md-4
-        .thumbnail
-          p.lead style="text-align: center;" Products
-          .caption
-            h4 style="text-align: center;"
+
+/    a href="#{edit_users_path}"
+/      .col-sm-4.col-lg-4.col-md-4
+/        .thumbnail
+/          p.lead style="text-align: center;" Users
+/          .caption
+/            h4 style="text-align: center;"
+/              = @users
+
+
+
+.row
+  .col-lg-12
+    h1.page-header style='text-align: center;' Welcome, Admin
+.row
+  .col-lg-3.col-md-6
+    .panel.panel-primary
+      .panel-heading
+        .row
+          .col-xs-3
+            i.fa.fa-comments.fa-5x
+          .col-xs-9.text-right
+            .huge
               = @products
-    a href="#{edit_categories_path}"
-      .col-sm-4.col-lg-4.col-md-4
-        .thumbnail
-          p.lead style="text-align: center;" Categories
-          .caption
-            h4 style="text-align: center;"
+            div Products
+      a href="#{edit_products_path}"
+        .panel-footer
+          span.pull-left View Details
+          span.pull-right
+            i.fa.fa-arrow-circle-right
+          .clearfix
+  .col-lg-3.col-md-6
+    .panel.panel-green
+      .panel-heading
+        .row
+          .col-xs-3
+            i.fa.fa-tasks.fa-5x
+          .col-xs-9.text-right
+            .huge
               = @categories
-    a href="#{edit_users_path}"
-      .col-sm-4.col-lg-4.col-md-4
-        .thumbnail
-          p.lead style="text-align: center;" Users
-          .caption
-            h4 style="text-align: center;"
+            div Categories
+      a href="#{edit_categories_path}"
+        .panel-footer
+          span.pull-left View Details
+          span.pull-right
+            i.fa.fa-arrow-circle-right
+          .clearfix
+  .col-lg-3.col-md-6
+    .panel.panel-yellow
+      .panel-heading
+        .row
+          .col-xs-3
+            i.fa.fa-shopping-cart.fa-5x
+          .col-xs-9.text-right
+            .huge 124
+            div New Orders!
+      a href="#"
+      .panel-footer
+        span.pull-left View Details
+        span.pull-right
+          i.fa.fa-arrow-circle-right
+        .clearfix
+  .col-lg-3.col-md-6
+    .panel.panel-red
+      .panel-heading
+        .row
+          .col-xs-3
+            i.fa.fa-support.fa-5x
+          .col-xs-9.text-right
+            .huge
               = @users
+            div Users
+      a href="#{edit_users_path}"
+        .panel-footer
+          span.pull-left View Details
+          span.pull-right
+            i.fa.fa-arrow-circle-right
+          .clearfix

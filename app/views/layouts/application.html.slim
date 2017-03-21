@@ -8,13 +8,26 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = favicon_link_tag 'shop-icon.png'
   body
+    - if current_user
+      - if current_user.deleted?
+        - controller.reset_session
+        - controller.redirect_to root_path, notice: 'This account was deleted'
+      - elsif current_user.banned?
+        - controller.reset_session
+        - controller.redirect_to root_path, notice: 'This account was banned'
     .container
       - if notice
         .alert.alert-info
-          = notice
+          a.close data-dismiss="alert" href="#" ×
+          ul
+            li
+              = notice
       - if alert
         .alert.alert-warning
-          = alert
+          a.close data-dismiss="alert" href="#" ×
+          ul
+            li
+              = alert
       = render 'layouts/nav'
       .row
         = yield
