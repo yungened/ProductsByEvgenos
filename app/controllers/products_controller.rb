@@ -32,9 +32,9 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id]).destroy
+    Product.find(params[:id]).destroy
 
-    redirect_to root_path
+    redirect_to edit_products_path
   end
 
   def index

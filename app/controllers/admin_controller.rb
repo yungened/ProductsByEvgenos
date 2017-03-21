@@ -9,15 +9,15 @@ class AdminController < ApplicationController
   end
 
   def edit_products
-
+    @products = Product.all
   end
 
   def edit_categories
-
+    @categories = Category.all.paginate(page: params[:page], per_page: 9)
   end
 
   def edit_users
-    @users = User.all.paginate(page: params[:page], per_page: 3)
+    @users = User.all.paginate(page: params[:page], per_page: 7)
   end
 
   def update

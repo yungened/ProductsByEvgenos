@@ -1,35 +1,31 @@
 h1 style = 'text-align: center;' Users
-h2.sub-header
-  .table-responsive
-    table.table.table-striped
-      thead
-        thead
-          tr
-            th Email
-            th Role
-            th
-            th Status
-      tbody
-        - @users.each do |user|
-          tr
-            td
-              = user.email
-            - if user.has_role?(:user)
-              td
-                = form_tag('/admin/' + user.id.to_s + '?role=admin', method: :put) do
-                  input class='btn btn-primary' type='submit' value=('Make Admin')
-            - else
-              td
-                | This is admin
-              td
-                | Can`t banned
-            - unless user.has_role?(:admin)
-              td
-                - unless user.banned? || user.deleted?
-                  = link_to 'Ban', banned_user_path(user), class: 'btn btn-danger'
-                - else
-                  = link_to 'Allow', banned_user_path(user), class: 'btn btn-success'
-            td
-              = user.status
+table.responstable
+  tr
+    th Email
+    th data-th=("Driver details")
+      span style='text-align: center;' Change role
+    th style='text-align: center;' Actions
+    th style='text-align: center;' Status
+  - @users.each do |user|
+    tr
+      td
+        = user.email
+      - if user.has_role?(:user)
+        td style='text-align: center;'
+          = form_tag('/admin/' + user.id.to_s + '?role=admin', method: :put) do
+            input class='btn btn-primary' type='submit' value=('Make Admin')
+      - else
+        td style='text-align: center;'
+          | This is admin
+        td style='text-align: center;'
+          | Can`t banned
+      - unless user.has_role?(:admin)
+        td style='text-align: center;'
+          - unless user.banned? || user.deleted?
+            = link_to 'Ban', banned_user_path(user), class: 'btn btn-danger'
+          - else
+            = link_to 'Allow', banned_user_path(user), class: 'btn btn-success'
+      td style='text-align: center;'
+        = user.status
 div style='margin-left: 40%'
   = will_paginate @users, renderer: BootstrapPagination::Rails, inner_window: 1

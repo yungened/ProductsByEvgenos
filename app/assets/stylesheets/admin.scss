@@ -435,3 +435,482 @@ table.dataTable thead .sorting:after {
     border-left-width: 0;
   }
 }
+
+/*
+
+RESPONSTABLE 2.0 by jordyvanraaij
+  Designed mobile first!
+
+If you like this solution, you might also want to check out the 1.0 version:
+  https://gist.github.com/jordyvanraaij/9069194
+
+*/
+
+// Default options for table style
+$table-breakpoint: 480px;
+$table-background-color: #FFF;
+$table-text-color: #024457;
+$table-outer-border: 1px solid #167F92;
+$table-cell-border: 1px solid #D9E4E6;
+
+// Extra options for table style (parse these arguments when including your mixin)
+$table-border-radius: 10px;
+$table-highlight-color: #EAF3F3;
+$table-header-background-color: #167F92;
+$table-header-text-color: #FFF;
+$table-header-border: 1px solid #FFF;
+
+// The Responstable mixin
+
+@mixin responstable(
+  $breakpoint: $table-breakpoint,
+  $background-color: $table-background-color,
+  $text-color: $table-text-color,
+  $outer-border: $table-outer-border,
+  $cell-border: $table-cell-border,
+  $border-radius: none,
+  $highlight-color: none,
+  $header-background-color: $table-background-color,
+  $header-text-color: $table-text-color,
+  $header-border: $table-cell-border) {
+
+  .responstable {
+    margin: 1em 0;
+    width: 100%;
+    overflow: hidden;
+    background: $background-color;
+    color: $text-color;
+    border-radius: $border-radius;
+    border: $outer-border;
+
+    tr {
+      border: $cell-border;
+      &:nth-child(odd) { // highlight the odd rows with a color
+        background-color: $highlight-color;
+      }
+    }
+
+    th {
+      display: none; // hide all the table header for mobile
+      border: $header-border;
+      background-color: $header-background-color;
+      color: $header-text-color;
+      padding: 1em;
+      &:first-child { // show the first table header for mobile
+        display: table-cell;
+        text-align: center;
+      }
+      &:nth-child(2) { // show the second table header but replace the content with the data-th from the markup for mobile
+        display: table-cell;
+        span {display:none;}
+        &:after {content:attr(data-th);}
+      }
+      @media (min-width: $breakpoint) {
+        &:nth-child(2) { // hide the data-th and show the normal header for tablet and desktop
+          span {display: block;}
+          &:after {display: none;}
+        }
+      }
+    }
+
+    td {
+      display: block; // display the table data as one block for mobile
+      word-wrap: break-word;
+      max-width: 7em;
+      &:first-child {
+        display: table-cell; // display the first one as a table cell (radio button) for mobile
+        text-align: center;
+        border-right: $cell-border;
+      }
+      @media (min-width: $breakpoint) {
+        border: $cell-border;
+      }
+    }
+
+    th, td {
+      text-align: left;
+      margin: .5em 1em;
+      @media (min-width: $breakpoint) {
+        display: table-cell; // show the table as a normal table for tablet and desktop
+        padding: 1em;
+      }
+    }
+  }
+}
+
+// Include the mixin (with extra options as overrides)
+
+@include responstable(
+        $border-radius: $table-border-radius,
+        $highlight-color: $table-highlight-color,
+        $header-background-color: $table-header-background-color,
+        $header-text-color: $table-header-text-color,
+        $header-border: $table-header-border);
+
+// General styles
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: #024457;
+  background: #f2f2f2;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: #024457;
+  span {color: #167F92;}
+}
+
+
+
+
+
+
+
+.layer {
+  overflow: hidden;
+  height: 90px;
+}
+
+
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+*{
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /*Chrome and Safari*/
+  /*  outline: 1px grey solid; */
+}
+
+a{
+  color: #739931;
+}
+
+.page{
+  max-width: 78%;
+  margin: 0 auto;
+}
+
+.page * {
+  padding: 0;
+  margin: 0;
+}
+
+/* Mobile */
+
+#store_cart {
+  float: left;
+  width: 100%;
+}
+
+/* cart header */
+
+.cart_head {
+  float: left;
+  width: 100%;
+  display: table;
+  background: #1F1F1F;
+  color: white;
+  background: rgb(69,72,77);
+  background: -moz-linear-gradient(top,  rgba(69,72,77,1) 0%, rgba(34,34,34,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(34,34,34,1)));
+  background: -webkit-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(34,34,34,1) 100%);
+  background: -o-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(34,34,34,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(34,34,34,1) 100%);
+  background: linear-gradient(to bottom,  rgba(69,72,77,1) 0%,rgba(34,34,34,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#222222',GradientType=0 );
+
+
+}
+
+.cart_head li {
+  vertical-align: middle;
+  padding: 12px;
+  font-size: 18px;
+  float: left;
+}
+
+/* cart header cells */
+
+.cart_head_title {
+  display: table-cell;
+  width: 100%;
+}
+.cart_head_product {
+  display: none;
+}
+.cart_head_options {
+  display: none;
+}
+.cart_head_price {
+  display: none;
+}
+
+/* cart header pseudo-class */
+
+.cart_head li:focus {}
+.cart_head li:last-child {}
+
+/* cart item */
+
+.cart_item {
+  float: left;
+  width: 100%;
+  display: table;
+  background: #fff;
+  border: 1px solid #555;
+  border-top: none;
+
+}
+
+.cart_item li {
+  vertical-align: middle;
+  padding: 9px;
+  font-size: 0.8em;
+  float: left;
+}
+
+.cart_item li p {
+  font-size: 1.3em;
+}
+
+.cart_item li span {
+  font-size: 0.9em;
+}
+
+.cart_item li h2 {
+  font-size: 1.1em;
+}
+
+/* cart item cells */
+
+.cart_img_col {
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+  background-image: url(http://i.imgur.com/3P8WF5D.jpg);
+  background-size: 90%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 100px;
+}
+
+.cart_img_col img {
+  display: none;
+}
+
+.cart_product_col {
+  display: inline-block;
+  width: 70%;
+  padding-bottom: 0 !important;
+}
+
+.cart_options_col {
+  display: inline-block;
+  width: 30%;
+}
+.cart_options_col input {
+  width: 48px;
+}
+.cart_price_col {
+  text-align: center;
+  display: inline-block;
+  width: 20%;
+}
+.cart_del_col {
+  display: inline-block;
+  width: 20%;
+  text-align: center;
+}
+.cart_del_col img {
+  max-width: 25px;
+  cursor: pointer;
+}
+.cart_del_col img:hover {
+  opacity: 0.8;
+}
+
+/* cart item pseudo-class */
+
+.cart_item:first-child {}
+.cart_item:last-child {}
+.cart_item li:first-child {}
+.cart_item li:last-child {}
+
+
+/* Tablet */
+@media only screen and (min-width: 481px) {
+
+  /* cart item */
+
+  .cart_item {
+    height: 100px;
+  }
+
+  .cart_head li {
+    float: none;
+    font-size: 1em;
+  }
+
+  .cart_item li {
+    float: none;
+  }
+
+  .cart_item li p {
+    font-size: 1.2em;
+  }
+
+  .cart_item li span {
+    font-size: 1em;
+  }
+
+  .cart_item li h2 {
+    font-size: 1em;
+  }
+
+  /* cart header cells */
+
+  .cart_head_title {
+    display: none;
+  }
+  .cart_head_product {
+    display: table-cell;
+    width: 45%;
+  }
+  .cart_head_options {
+    display: table-cell;
+    width: 18.5%;
+  }
+  .cart_head_price {
+    display: table-cell;
+    width: 21.625%;
+  }
+
+  /* cart item cells */
+
+  .cart_img_col {
+    width: 15%;
+    display: table-cell;
+    background-image: none;
+  }
+
+  .cart_img_col img {
+    max-width: 60px;
+    display: inline-block;
+    height: auto;
+  }
+
+  .cart_product_col {
+    display: table-cell;
+    width: 30%;
+    padding-bottom: 12px !important;
+  }
+
+  .cart_options_col {
+    display: table-cell;
+    width: 18.5%;
+  }
+
+  .cart_price_col {
+    display: table-cell;
+    width: 11.625%;
+  }
+
+  .cart_del_col {
+    display: table-cell;
+    width: 9%;
+  }
+
+  .cart_item li:nth-child(even) {
+    background: rgba(0,0,0, 0.1);
+
+  }
+
+  .cart_head li:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+}
+
+/* Desktop */
+
+@media only screen and (min-width: 769px) {
+
+  /* cart item */
+
+  .cart_head li:nth-child(even) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .cart_head li:nth-child(odd) {
+    background: none;
+  }
+
+  .cart_item {
+    height: 10px;
+  }
+
+  .cart_head li {
+    font-size: 1.1em;
+  }
+
+  .cart_item li p {
+    font-size: 1.4em;
+    font-weight: 700;
+  }
+
+  .cart_item li span {
+    font-size: 1em;
+  }
+
+  .cart_item li h2 {
+    font-size: 1.4em;
+  }
+
+  /* cart header cells */
+
+  .cart_head_title {
+    display: table-cell;
+    width: 15%;
+  }
+  .cart_head_product {
+    width: 45%;
+  }
+  .cart_head_options {
+    width: 19.5%;
+  }
+  .cart_head_price {
+    width: 18.5%;
+  }
+
+  /* cart item cells */
+
+  .cart_img_col {
+  }
+
+  .cart_img_col img {
+    max-width: 75px;
+  }
+
+  .cart_product_col {
+    width: 45%;
+  }
+
+  .cart_price_col {
+    width: 11.625%;
+  }
+
+  .cart_options_col {
+    width: 19.5%;
+  }
+
+  .cart_del_col {
+    width: 6.875%;
+  }
+
+}

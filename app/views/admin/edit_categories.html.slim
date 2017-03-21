@@ -1,2 +1,24 @@
-div style='text-align: center;'
+div style='text-align: right;'
   = link_to 'Add category', new_category_path, class: 'btn btn-primary'
+- if @categories.empty?
+  h1 Categories is empty
+
+table.responstable
+  tr
+    th Title
+    th data-th=("Driver details")
+      span Created at
+    th Actions
+  - @categories.each do |category|
+    tr
+      td
+        = link_to category.title, category_path(category)
+      td
+        = category.created_at.localtime.strftime('%d %b %Y %r')
+      td
+        = link_to 'Edit ', edit_category_path(category), class: 'btn btn-success'
+        = link_to ' Delete', category_path(category), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
+
+div style='margin-left: 40%;'
+  = will_paginate @categories, renderer: BootstrapPagination::Rails, inner_window: 1
+
