@@ -1,5 +1,12 @@
+- provide(:title, 'Categories')
+ol.breadcrumb
+  li
+    = link_to 'DASHBOARD', admin_path
+  li.active Categories
+
 div style='text-align: right;'
   = link_to 'Add category', new_category_path, class: 'btn btn-primary'
+
 - if @categories.empty?
   h1 Categories is empty
 
@@ -7,18 +14,19 @@ table.responstable
   tr
     th Title
     th data-th=("Driver details")
-      span Created at
-    th Actions
+      span style='text-align: center;' Created at
+    th colspan='2' style='text-align: center;' Actions
   - @categories.each do |category|
     tr
       td
         = link_to category.title, category_path(category)
-      td
+      td style='text-align: center;'
         = category.created_at.localtime.strftime('%d %b %Y %r')
-      td
+      td style='text-align: center;'
         = link_to 'Edit ', edit_category_path(category), class: 'btn btn-success'
+      td style='text-align: center;'
         = link_to ' Delete', category_path(category), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
 
-div style='margin-left: 40%;'
+div.text-center
   = will_paginate @categories, renderer: BootstrapPagination::Rails, inner_window: 1
 

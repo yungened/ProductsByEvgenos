@@ -23,11 +23,6 @@
         span.glyphicon.glyphicon-star-empty
         | 4.0 stars
 
-  - if current_user
-    - if current_user.has_role?(:admin)
-      = link_to 'Edit ', edit_product_path(@product), :class => 'btn btn-primary'
-      = link_to ' Delete', product_path(@product), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
-
   .well
     .text-right
       = form_for([@product, @product.messages.build]) do |f|
@@ -52,5 +47,5 @@
             = message.content
       hr
 
-div style='margin-left: 53%;'
+div.text-center
   = will_paginate @messages, renderer: BootstrapPagination::Rails, inner_window: 1

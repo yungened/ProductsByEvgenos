@@ -1,4 +1,10 @@
-h1 style = 'text-align: center;' Users
+- provide(:title, 'Users')
+
+ol.breadcrumb
+  li
+    = link_to 'DASHBOARD', admin_path
+  li.active Users
+
 table.responstable
   tr
     th Email
@@ -10,16 +16,21 @@ table.responstable
     tr
       td
         = user.email
-      - if user.has_role?(:user)
+      - if user == current_user
+        td style='text-align: center;'
+          | You are admin
+      - elsif user.has_role?(:user)
         td style='text-align: center;'
           = form_tag('/admin/' + user.id.to_s + '?role=admin', method: :put) do
             input class='btn btn-primary' type='submit' value=('Make Admin')
-      - else
+      - elsif user.has_role?(:admin)
         td style='text-align: center;'
-          | This is admin
+          = form_tag('/admin/' + user.id.to_s + '?role=user', method: :put) do
+            input class='btn btn-primary' type='submit' value=('Make User')
+      - if user == current_user
         td style='text-align: center;'
-          | Can`t banned
-      - unless user.has_role?(:admin)
+          | Can`t be banned
+      - elsif user.has_role?(:user) || user.has_role?(:admin)
         td style='text-align: center;'
           - unless user.banned? || user.deleted?
             = link_to 'Ban', banned_user_path(user), class: 'btn btn-danger'
@@ -27,5 +38,5 @@ table.responstable
             = link_to 'Allow', banned_user_path(user), class: 'btn btn-success'
       td style='text-align: center;'
         = user.status
-div style='margin-left: 40%'
+div.text-center
   = will_paginate @users, renderer: BootstrapPagination::Rails, inner_window: 1

@@ -4,7 +4,7 @@ h1 style='text-align: center;' Your cart
 - total = 0
 table#cart.table.table-hover.table-condensed
   - @cart.each do |id, quantity|
-    - product = Product.find(id)
+    - product = get_product_by_id(id)
     - total += product.price * quantity
     thead
       tr

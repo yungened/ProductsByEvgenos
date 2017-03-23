@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if(@product.save)
-      redirect_to admin_path
+      redirect_to edit_products_path
     else
       render 'new'
     end
@@ -33,13 +33,16 @@ class ProductsController < ApplicationController
 
   def destroy
     Product.find(params[:id]).destroy
+    id = params[:id]
+    cart = session[:cart]
 
+    cart.delete id
     redirect_to edit_products_path
   end
 
   def index
-    @products = Product.all.paginate(page: params[:page], per_page: 9)
-    # @products = Product.search((params[:q].present? ? params[:q] : '*')).records
+    @search = Product.search(params[:q])
+    @products = @search.result.paginate(page: params[:page], per_page: 9)
   end
 
   def show
@@ -47,7 +50,8 @@ class ProductsController < ApplicationController
     @messages = @product.messages.paginate(page: params[:page], per_page: 7)
   end
 
-  private def product_params
-    params.require(:product).permit(:title, :description, :price, :image, :category_id)
+  private
+  def product_params
+    params.require(:product).permit(:title, :description, :price, :qty, :image, :category_id)
   end
 end

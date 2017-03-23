@@ -1,34 +1,45 @@
+- provide(:title, 'Products')
+
+ol.breadcrumb
+  li
+    = link_to 'DASHBOARD', admin_path
+  li.active Products
+
 div style='text-align: right;'
   = link_to 'Add product', new_product_path, class: 'btn btn-primary'
 
 .page
   #store_cart
     ul.cart_head
-      li.cart_head_title
-        | My Cart
-      li.cart_head_product
+      li.cart_head_title style='width: 55px;'
+        | Image
+      li.cart_head_product style='width: 176px;'
         | Product
-      li.cart_head_options
-        | Edit
-      li.cart_head_price
+      li.cart_head_options.text-center style='width: 10px;'
+        | Quantity
+      li.cart_head_price style='width: 73px;'
         | Price
     - @products.each do |product|
       ul.cart_item
         li.cart_img_col
-          img src="#{ product.image }"
+          = link_to image_tag(product.image), product_path(product)
         li.cart_product_col
           p
-            = product.title
+            = link_to product.title, product_path(product)
           span
             strong
               .layer
                 = product.description
-        li.cart_options_col
-          span Quantity:
-          input min="1" type="number" value="1"
+        li.cart_price_col
+          h2
+            = product.qty
         li.cart_price_col
           h2
             = number_to_currency product.price
         li.cart_del_col
           = link_to image_tag("http://i.imgur.com/bI4oD5C.png"), product_path(product), method: :delete, data: {confirm: 'Are you sure?'}
+          = link_to image_tag("http://vignette2.wikia.nocookie.net/lains-horrible-adventure/images/b/b6/Edit-icon.png/revision/latest?cb=20130313015516"), edit_product_path(product)
+div.text-center
+  = will_paginate @products, renderer: BootstrapPagination::Rails, inner_window: 1
+
 

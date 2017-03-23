@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!, except: :show
+  load_and_authorize_resource
 
   def new
     @category = Category.new

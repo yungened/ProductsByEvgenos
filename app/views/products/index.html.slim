@@ -1,5 +1,17 @@
 - provide(:title, 'Products by Evgenos')
 = render 'layouts/shared/design/sidebar'
+
+= search_form_for @search do |f|
+  .field.text-right style='margin-bottom: 25px;'
+    = f.text_field :title_cont
+    = f.submit nil, class: 'glyphicon glyphicon-search'
+  /.field
+  /  = f.label :price_gteq, 'Price between'
+  /  = f.text_field :price_gteq
+  /  = f.label :price_lteq, 'and'
+  /  = f.text_field :price_lteq
+  /
+
 .col-md-9
   = render 'layouts/shared/design/carousel'
   - @products.each do |product|
@@ -25,7 +37,7 @@
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
               span.glyphicon.glyphicon-star
-div style='margin-left: 53%;'
+div.text-center
   = will_paginate @products, renderer: BootstrapPagination::Rails, inner_window: 1
 
 
