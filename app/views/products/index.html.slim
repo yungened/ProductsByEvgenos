@@ -2,15 +2,18 @@
 = render 'layouts/shared/design/sidebar'
 
 = search_form_for @search do |f|
-  .field.text-right style='margin-bottom: 25px;'
+  .field.text-right style='margin-bottom: 16px;'
     = f.text_field :title_cont
-    = f.submit nil, class: 'glyphicon glyphicon-search'
-  /.field
-  /  = f.label :price_gteq, 'Price between'
-  /  = f.text_field :price_gteq
-  /  = f.label :price_lteq, 'and'
-  /  = f.text_field :price_lteq
-  /
+    = button_tag(type: 'submit', class: 'btn') do
+      span.glyphicon.glyphicon-search
+
+
+/.field
+/  = f.label :price_gteq, 'Price between'
+/  = f.text_field :price_gteq
+/  = f.label :price_lteq, 'and'
+/  = f.text_field :price_lteq
+
 
 .col-md-9
   = render 'layouts/shared/design/carousel'

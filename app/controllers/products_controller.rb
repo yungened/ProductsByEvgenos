@@ -33,10 +33,7 @@ class ProductsController < ApplicationController
 
   def destroy
     Product.find(params[:id]).destroy
-    id = params[:id]
-    cart = session[:cart]
 
-    cart.delete id
     redirect_to edit_products_path
   end
 
