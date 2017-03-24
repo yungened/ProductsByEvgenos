@@ -1,12 +1,5 @@
 - provide(:title, @product.title)
 
-- average = 0
-- @product.messages.each do |message|
-  - average += message.rating
-- average /= @product.messages.size
-- stars = average.round 1
-- average = average.round
-
 = render 'layouts/shared/design/sidebar'
 .col-md-9
   .thumbnail
@@ -24,11 +17,21 @@
       p.pull-right
         = "#{ @product.messages.size } reviews"
       p
-        - average.times
-          span.glyphicon.glyphicon-star
-        - (5-average).times
-          span.glyphicon.glyphicon-star-empty
-        = " #{ stars } stars"
+        - if @product.messages.empty?
+          - 5.times
+            span.glyphicon.glyphicon-star-empty
+        - else
+          - average = 0
+          - @product.messages.each do |message|
+            - average += message.rating
+          - average /= @product.messages.size
+          - stars = average.round 1
+          - average = average.round
+          - average.times
+            span.glyphicon.glyphicon-star
+          - (5-average).times
+            span.glyphicon.glyphicon-star-empty
+          = " #{ stars } stars"
 
   .well
     .text-right
@@ -45,12 +48,11 @@
       hr
       .row
         .col-md-12
-          span.glyphicon.glyphicon-star
-          span.glyphicon.glyphicon-star
-          span.glyphicon.glyphicon-star
-          span.glyphicon.glyphicon-star
-          span.glyphicon.glyphicon-star-empty
-            = message.user.email
+          - message.rating.round.times
+            span.glyphicon.glyphicon-star
+          - (5-message.rating.round).times
+            span.glyphicon.glyphicon-star-empty
+          = message.user.email
           span.pull-right
             = message.created_at.localtime.strftime('%d %b %Y %r ')
             - if current_user

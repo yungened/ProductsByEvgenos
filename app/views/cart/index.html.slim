@@ -31,11 +31,11 @@ table#cart.table.table-hover.table-condensed
         td data-th="Price"
           = number_to_currency product.price
         td data-th="Quantity"
-          input.form-control.text-center type="number" value="#{quantity}"
+          = number_field_tag 'quantity', quantity, class: 'form-control'
         td.text-center data-th="Subtotal"
           = number_to_currency product.price * quantity
         td.actions data-th=""
-          = link_to '', cart_path, class: 'glyphicon glyphicon-refresh'
+          = link_to '', cart_update_path(id), class: 'glyphicon glyphicon-refresh'
           = link_to '', cart_des_path(id), method: :delete, class: 'glyphicon glyphicon-trash', data: {confirm: 'Are you sure?'}
 
   tfoot

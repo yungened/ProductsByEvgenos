@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     if(@category.update(category_params))
-      redirect_to @category
+      redirect_to edit_categories_path
     else
       render 'edit'
     end

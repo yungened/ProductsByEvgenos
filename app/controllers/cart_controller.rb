@@ -11,6 +11,14 @@ class CartController < ApplicationController
     redirect_to products_path
   end
 
+  def update
+    id = params[:id]
+    cart = session[:cart] ||= {}
+    cart[id] = (cart[id] || 0) + 1
+
+    redirect_to cart_path
+  end
+
   def destroy
     id = params[:id]
     cart = session[:cart]
