@@ -1,4 +1,12 @@
 - provide(:title, @product.title)
+
+- average = 0
+- @product.messages.each do |message|
+  - average += message.rating
+- average /= @product.messages.size
+- stars = average.round 1
+- average = average.round
+
 = render 'layouts/shared/design/sidebar'
 .col-md-9
   .thumbnail
@@ -16,17 +24,22 @@
       p.pull-right
         = "#{ @product.messages.size } reviews"
       p
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star
-        span.glyphicon.glyphicon-star-empty
-        | 4.0 stars
+        - average.times
+          span.glyphicon.glyphicon-star
+        - (5-average).times
+          span.glyphicon.glyphicon-star-empty
+        = " #{ stars } stars"
 
   .well
     .text-right
       = form_for([@product, @product.messages.build]) do |f|
         = f.text_area :content, :rows => 4, :cols => 50, placeholder: 'Your review...', :class => 'form-control'
+        .text-left
+          = f.label :rating, 'Very Dissatisfied'
+          - 5.times do |i|
+            span style='margin-left: 5px;'
+              = f.radio_button :rating, i+1
+          = f.label :rating, 'Very Satisfied'
         = f.submit :'Leave a Review', {:class => 'a btn btn-success'}
     - @messages.each do |message|
       hr

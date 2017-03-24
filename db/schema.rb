@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170322185647) do
+ActiveRecord::Schema.define(version: 20170323125039658785) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,9 @@ ActiveRecord::Schema.define(version: 20170322185647) do
     t.text     "content"
     t.integer  "product_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.decimal  "rating",     default: "1.0"
     t.index ["product_id"], name: "index_messages_on_product_id", using: :btree
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
@@ -54,6 +55,19 @@ ActiveRecord::Schema.define(version: 20170322185647) do
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
     t.index ["name"], name: "index_roles_on_name", using: :btree
+  end
+
+  create_table "seems_rateable_rates", force: :cascade do |t|
+    t.integer  "rater_id"
+    t.string   "rateable_type"
+    t.integer  "rateable_id"
+    t.float    "stars",         null: false
+    t.string   "dimension"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["dimension"], name: "index_seems_rateable_rates_on_dimension", using: :btree
+    t.index ["rateable_id", "rateable_type"], name: "index_seems_rateable_rates_on_rateable_id_and_rateable_type", using: :btree
+    t.index ["rater_id"], name: "index_seems_rateable_rates_on_rater_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

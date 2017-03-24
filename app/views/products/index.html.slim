@@ -7,14 +7,6 @@
     = button_tag(type: 'submit', class: 'btn') do
       span.glyphicon.glyphicon-search
 
-
-/.field
-/  = f.label :price_gteq, 'Price between'
-/  = f.text_field :price_gteq
-/  = f.label :price_lteq, 'and'
-/  = f.text_field :price_lteq
-
-
 .col-md-9
   = render 'layouts/shared/design/carousel'
   - @products.each do |product|
@@ -35,11 +27,21 @@
             p.pull-right
               = "#{ product.messages.size } reviews"
             p
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
+              - if product.messages.empty?
+                - 5.times
+                  span.glyphicon.glyphicon-star-empty
+              - else
+                - average = 0
+                - product.messages.each do |message|
+                  - average += message.rating
+                - average /= product.messages.size
+                - stars = average.round 1
+                - average = average.round
+                - average.times
+                  span.glyphicon.glyphicon-star
+                - (5-average).times
+                  span.glyphicon.glyphicon-star-empty
+                = " #{ stars } stars"
 div.text-center
   = will_paginate @products, renderer: BootstrapPagination::Rails, inner_window: 1
 

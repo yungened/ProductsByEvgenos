@@ -22,11 +22,21 @@ p.lead style="text-align: center;"
               p.pull-right
                 = "#{ product.messages.size } reviews"
               p
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
+                - if product.messages.empty?
+                  - 5.times
+                    span.glyphicon.glyphicon-star-empty
+                - else
+                  - average = 0
+                  - product.messages.each do |message|
+                    - average += message.rating
+                  - average /= product.messages.size
+                  - stars = average.round 1
+                  - average = average.round
+                  - average.times
+                    span.glyphicon.glyphicon-star
+                  - (5-average).times
+                    span.glyphicon.glyphicon-star-empty
+                  = " #{ stars } stars"
   - else
     p.lead style="text-align: center;" Category is empty
 
