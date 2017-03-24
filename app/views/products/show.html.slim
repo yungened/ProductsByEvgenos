@@ -1,8 +1,18 @@
 - provide(:title, @product.title)
 
 = render 'layouts/shared/design/sidebar'
+
 .col-md-9
-  .thumbnail
+  - if current_user
+    - if current_user.has_role?(:admin)
+      ol.breadcrumb
+        li
+          = link_to 'DASHBOARD', admin_path
+        li
+          = link_to 'Products', edit_products_path
+        li.active
+          = @product.title
+  .thumbnail style='margin-top: 50px;'
     img.img-responsive.img-large alt="" src="#{@product.image.url(:large)}"
     .caption-full
       h4.pull-right

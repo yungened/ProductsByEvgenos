@@ -3,6 +3,15 @@
 p.lead style="text-align: center;"
   = @category.title
 .col-md-9
+  - if current_user
+    - if current_user.has_role?(:admin)
+      ol.breadcrumb
+        li
+          = link_to 'DASHBOARD', admin_path
+        li
+          = link_to 'Categories', edit_categories_path
+        li.active
+          = @category.title
   - unless @products.empty?
     - @products.each do |product|
       a href="#{product_path(product)}"

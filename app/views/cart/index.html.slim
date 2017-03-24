@@ -31,7 +31,7 @@ table#cart.table.table-hover.table-condensed
         td data-th="Price"
           = number_to_currency product.price
         td data-th="Quantity"
-          = number_field_tag 'quantity', quantity, class: 'form-control'
+          = number_field_tag 'qty', quantity, class: 'form-control'
         td.text-center data-th="Subtotal"
           = number_to_currency product.price * quantity
         td.actions data-th=""

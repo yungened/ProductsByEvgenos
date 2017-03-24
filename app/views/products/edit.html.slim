@@ -13,7 +13,9 @@ h1 Edit product
   p
     = f.select(:category_id) do
       - Category.all.each do |category|
-        = content_tag(:option, category.title, value: category.id)
+        - if category.id == @product.category_id
+          - selected = 'selected'
+        = content_tag(:option, category.title, value: category.id, selected: selected)
   p
     = f.label :title
     = f.text_field :title, class: 'form-control'

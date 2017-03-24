@@ -13,6 +13,7 @@ class CartController < ApplicationController
 
   def update
     id = params[:id]
+    # qty = params[:qty]
     cart = session[:cart] ||= {}
     cart[id] = (cart[id] || 0) + 1
 
@@ -27,4 +28,5 @@ class CartController < ApplicationController
 
     redirect_to cart_path
   end
+
 end

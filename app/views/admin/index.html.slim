@@ -1,25 +1,15 @@
 - provide(:title, 'Admin Page')
 
-/    a href="#{edit_users_path}"
-/      .col-sm-4.col-lg-4.col-md-4
-/        .thumbnail
-/          p.lead style="text-align: center;" Users
-/          .caption
-/            h4 style="text-align: center;"
-/              = @users
-
-
-
 .row
   .col-lg-12
     h1.page-header.text-center style='margin-top: 0px;' Welcome, Admin!
-.row style='min-height: 447px;'
+.row style='min-height: 139px;'
   .col-lg-3.col-md-6
     .panel.panel-primary
       .panel-heading
         .row
           .col-xs-3
-            i.fa.fa-comments.fa-5x
+            i.fa.fa-shopping-bag.fa-5x
           .col-xs-9.text-right
             .huge
               = @products
@@ -66,7 +56,7 @@
       .panel-heading
         .row
           .col-xs-3
-            i.fa.fa-support.fa-5x
+            i.fa.fa-user.fa-fw.fa-5x
           .col-xs-9.text-right
             .huge
               = @users
