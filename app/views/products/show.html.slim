@@ -22,7 +22,7 @@
       p
         = @product.description
       h4.pull-right
-        = link_to '', cart_add_path(@product), class: 'glyphicon glyphicon-shopping-cart'
+        = link_to '', cart_add_path(@product), method: :post, class: 'glyphicon glyphicon-shopping-cart'
     .ratings
       p.pull-right
         = "#{ @product.messages.size } reviews"

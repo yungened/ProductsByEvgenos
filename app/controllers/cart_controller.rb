@@ -8,15 +8,13 @@ class CartController < ApplicationController
     cart = session[:cart] ||= {}
     cart[id] = (cart[id] || 0) + 1
 
-    redirect_to products_path
+    redirect_to request.referrer
   end
 
   def update
     id = params[:id]
-    value = params[:qty]
-    # cart = session[:cart] ||= {}
-    # cart[id] = cart_params
-    session[:cart].update(id=>value)
+    cart = session[:cart]
+    cart[id] = cart_params[:qty].to_i
 
     redirect_to cart_path
   end
@@ -31,6 +29,6 @@ class CartController < ApplicationController
   end
 
   private def cart_params
-    params.require(:cart).permit(params[:qty])
+    params.require(:cart)
   end
 end

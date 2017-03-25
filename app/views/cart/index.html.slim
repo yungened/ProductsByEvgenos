@@ -33,7 +33,8 @@ table#cart.table.table-hover.table-condensed
         td data-th="Quantity"
           = form_for :cart, url: cart_update_path(id), method: :patch do |f|
             = f.number_field 'qty', value: quantity, class: 'form-control'
-            /= f.submit
+            div.text-center
+              = f.button '', type: 'submit', class: 'glyphicon glyphicon-refresh'
         td.text-center data-th="Subtotal"
           = number_to_currency product.price * quantity
         td.actions data-th=""
