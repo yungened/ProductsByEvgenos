@@ -1,6 +1,11 @@
 class CartController < ApplicationController
   def index
+    @total = 0
     @cart = session[:cart] || {}
+    @cart.each do |id, quantity|
+      product = Product.find(id)
+      @total += product.price * quantity
+    end
   end
 
   def add

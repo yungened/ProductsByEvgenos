@@ -21,7 +21,8 @@ nav.navbar.navbar-default.navbar-fixed-top
       ul.nav.navbar-nav.navbar-right
         li.dropdown
           a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
-            | Language
+            i.fa.fa-flag
+            = t('language')
             span.caret
           ul.dropdown-menu
             li class=("#{ 'active' if I18n.locale == :en }")
@@ -35,7 +36,7 @@ nav.navbar.navbar-default.navbar-fixed-top
               span.caret
             ul.dropdown-menu
               li class=("#{ 'active' if current_page?(cart_path) }")
-                = link_to t('cart'), cart_path, class: 'glyphicon glyphicon-shopping-cart'
+                = link_to t('cart') + "(#{get_cart_size})", cart_path, class: 'glyphicon glyphicon-shopping-cart'
               li class=("#{ 'active' if current_page?(edit_user_registration_path) }")
                 = link_to ' ' + current_user.email, edit_user_registration_path, class: 'glyphicon glyphicon-user'
               li.divider role="separator"
@@ -43,7 +44,7 @@ nav.navbar.navbar-default.navbar-fixed-top
                 = link_to t('logout'), destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out'
         - else
           li class=("#{ 'active' if current_page?(cart_path) }")
-            = link_to t('cart'), cart_path, class: 'glyphicon glyphicon-shopping-cart'
+            = link_to t('cart') + "(#{get_cart_size})", cart_path, class: 'glyphicon glyphicon-shopping-cart'
           li class=("#{'active' if current_page?(new_user_registration_path)}")
             = link_to t('signup'), new_user_registration_path, class: 'glyphicon glyphicon-registration-mark'
           li class=("#{'active' if current_page?(new_user_session_path)}")

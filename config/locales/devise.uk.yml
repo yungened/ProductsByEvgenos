@@ -1,0 +1,6 @@
+uk:
+  devise:
+    sessions:
+      signed_in: "Ви успішно увійшли."
+      signed_out: "Ви успішно вийшли."
+      already_signed_out: "Ви успішно вийшли."

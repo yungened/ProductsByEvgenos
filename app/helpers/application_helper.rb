@@ -9,12 +9,16 @@ module ApplicationHelper
   end
 
   def get_cart_size
-    cart_size = session[:cart] ||= 0
-    unless cart_size == 0
+    cart_size = session[:cart]
+    unless cart_size.to_a.empty?
       cart_size.values.size
     else
-      cart_size
+      0
     end
+  end
+
+  def get_categories
+    @categories = Category.all
   end
 
 end

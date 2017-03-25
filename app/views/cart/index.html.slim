@@ -1,11 +1,9 @@
 - provide(:title, 'Cart')
 h1 style='text-align: center;' Your cart
 
-- total = 0
 table#cart.table.table-hover.table-condensed
   - @cart.each do |id, quantity|
     - product = get_product_by_id(id)
-    - total += product.price * quantity
     thead
       tr
         th style="width:50%"  Product
@@ -53,8 +51,8 @@ table#cart.table.table-hover.table-condensed
       td.hidden-xs colspan="2"
       td.hidden-xs.text-center
         strong
-          = number_to_currency total
+          = number_to_currency @total
       td
-        a.btn.btn-success.btn-block href="#"
+        a.btn.btn-success.btn-block href="#{ new_order_path }"
           | Checkout
           i.fa.fa-angle-right

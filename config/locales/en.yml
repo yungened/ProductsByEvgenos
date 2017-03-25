@@ -26,4 +26,5 @@ en:
   cart: ' Cart'
   signup: ' SignUp'
   login: ' Login'
-  login: ' Logout'
+  logout: ' Logout'
+  language: ' Language'
