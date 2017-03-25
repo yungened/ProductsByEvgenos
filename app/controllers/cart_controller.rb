@@ -13,9 +13,10 @@ class CartController < ApplicationController
 
   def update
     id = params[:id]
-    # qty = params[:qty]
-    cart = session[:cart] ||= {}
-    cart[id] = (cart[id] || 0) + 1
+    value = params[:qty]
+    # cart = session[:cart] ||= {}
+    # cart[id] = cart_params
+    session[:cart].update(id=>value)
 
     redirect_to cart_path
   end
@@ -29,4 +30,7 @@ class CartController < ApplicationController
     redirect_to cart_path
   end
 
+  private def cart_params
+    params.require(:cart).permit(params[:qty])
+  end
 end

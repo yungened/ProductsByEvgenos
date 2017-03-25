@@ -6,6 +6,7 @@ class AdminController < ApplicationController
     @products = Product.all.size
     @categories = Category.all.size
     @users = User.all.size
+    @orders = Order.all.size
   end
 
   def edit_products

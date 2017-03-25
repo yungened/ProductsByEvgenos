@@ -27,7 +27,7 @@ p.lead style="text-align: center;"
                 = product.description
             .ratings
               p.pull-right
-                = link_to '', cart_add_path, class: 'glyphicon glyphicon-shopping-cart'
+                = link_to '', cart_add_path(product), class: 'glyphicon glyphicon-shopping-cart'
               p.pull-right
                 = "#{ product.messages.size } reviews"
               p

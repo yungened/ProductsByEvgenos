@@ -43,14 +43,15 @@
           .col-xs-3
             i.fa.fa-shopping-cart.fa-5x
           .col-xs-9.text-right
-            .huge 124
-            div New Orders!
-      a href="#"
-      .panel-footer
-        span.pull-left View Details
-        span.pull-right
-          i.fa.fa-arrow-circle-right
-        .clearfix
+            .huge
+              = @orders
+            div Orders
+      a href="#{ orders_path }"
+        .panel-footer
+          span.pull-left View Details
+          span.pull-right
+            i.fa.fa-arrow-circle-right
+          .clearfix
   .col-lg-3.col-md-6
     .panel.panel-red
       .panel-heading

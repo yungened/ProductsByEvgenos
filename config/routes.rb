@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+
   get 'cart' => 'cart#index', as: 'cart'
   delete 'cart/:id' => 'cart#destroy', as: 'cart_des'
   get 'cart/add/:id' => 'cart#add', as: 'cart_add'
-  get 'cart/update/:id' => 'cart#update', as: 'cart_update'
+  patch 'cart/update/:id' => 'cart#update', as: 'cart_update'
+
 
   get 'admin' => 'admin#index'
   put 'admin/:id' => 'admin#update'
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 
+  resources :orders
   resources :categories
   resources :products do
     resources :messages, only: [:new, :create, :destroy]

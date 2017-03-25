@@ -31,11 +31,13 @@ table#cart.table.table-hover.table-condensed
         td data-th="Price"
           = number_to_currency product.price
         td data-th="Quantity"
-          = number_field_tag 'qty', quantity, class: 'form-control'
+          = form_for :cart, url: cart_update_path(id), method: :patch do |f|
+            = f.number_field 'qty', value: quantity, class: 'form-control'
+            /= f.submit
         td.text-center data-th="Subtotal"
           = number_to_currency product.price * quantity
         td.actions data-th=""
-          = link_to '', cart_update_path(id), class: 'glyphicon glyphicon-refresh'
+          /= link_to '', cart_update_path(id), class: 'glyphicon glyphicon-refresh'
           = link_to '', cart_des_path(id), method: :delete, class: 'glyphicon glyphicon-trash', data: {confirm: 'Are you sure?'}
 
   tfoot
@@ -55,6 +57,3 @@ table#cart.table.table-hover.table-condensed
         a.btn.btn-success.btn-block href="#"
           | Checkout
           i.fa.fa-angle-right
-
-
-
