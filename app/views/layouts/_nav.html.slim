@@ -18,9 +18,9 @@ nav.navbar.navbar-default.navbar-fixed-top
             li class=("#{ 'active' if current_page?(admin_path) }")
               a.glyphicon.glyphicon-lock href="#{admin_path}"
                 = t 'admin'
-
-      #cart.nav.navbar-nav.navbar-right
-        = render @cart
+      - unless current_page?(new_user_session_path)
+        #cart.nav.navbar-nav.navbar-right
+          = render @cart
       ul.nav.navbar-nav.navbar-right
         li.dropdown
           a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"

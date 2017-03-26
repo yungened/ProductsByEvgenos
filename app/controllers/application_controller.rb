@@ -21,5 +21,6 @@ class ApplicationController < ActionController::Base
     @cart = cart
     @cart
   end
+
 end
 
