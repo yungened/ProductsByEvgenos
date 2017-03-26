@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     get 'admin/edit_products' => 'admin#edit_products', as: 'edit_products'
     get 'admin/edit_categories' => 'admin#edit_categories', as: 'edit_categories'
     get 'admin/edit_users' => 'admin#edit_users', as: 'edit_users'
+    get 'admin/manage_orders' => 'admin#manage_orders', as: 'manage_orders'
     get 'admin/banned/:id' => 'admin#banned', as: :banned_user
+    patch 'manage_orders/:id/:status' => 'orders#update', as: 'change_role'
 
     devise_for :users, :controllers => { registrations: 'registrations' }
 

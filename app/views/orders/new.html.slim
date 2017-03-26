@@ -1,42 +1,41 @@
-/h2.text-center
-/  | Pay
-/= form_for :order, url: orders_path(@order), html: { multipart: true }, method: :patch do |f|
-/  .form-horizontal
-/    .form-group
-/      = f.label :email, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.email_field :email, autofocus: true, class: 'form-control'
-/    .form-group
-/      = f.label :first_name, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :first_name, class: 'form-control'
-/    .form-group
-/      = f.label :last_name, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :last_name, class: 'form-control'
-/    .form-group
-/      = f.label :country, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :country, class: 'form-control'
-/    .form-group
-/      = f.label :region, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :region, class: 'form-control'
-/    .form-group
-/      = f.label :city, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :city, class: 'form-control'
-/    .form-group
-/      = f.label :address, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :address, class: 'form-control'
-/    .form-group
-/      = f.label :post_code, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :post_code, class: 'form-control'
-/    .form-group
-/      = f.label :phone_number, class: 'control-label col-sm-2'
-/      .col-sm-10
-/        = f.text_field :phone_number, class: 'form-control'
-/  .actions.text-center
-/    = f.submit "Pay", class: 'btn btn-primary'
+h2.text-center
+  | Order
+= form_for current_user, url: registration_path(current_user) do |f|
+  .form-horizontal
+    .form-group
+      = f.label :email, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.email_field :email, autofocus: true, class: 'form-control'
+    .form-group
+      = f.label :first_name, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :first_name, class: 'form-control'
+    .form-group
+      = f.label :last_name, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :last_name, class: 'form-control'
+    .form-group
+      = f.label :city, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :city, class: 'form-control'
+    .form-group
+      = f.label :address, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :address, class: 'form-control'
+    .form-group
+      = f.label :phone_number, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :phone_number, class: 'form-control'
+  .actions.text-center
+    = f.submit "Change data", class: 'btn btn-primary'
+
+.panel.panel-success style='margin-top: 10px;'
+  .panel-heading
+    = " #{ @cart.line_items.size } "
+    | - Items
+  .panel-body
+    | Total:
+    = number_to_currency @cart.total_price
+div.text-center
+  = form_for @order do |f|
+    = f.submit "Confirm", class: 'btn btn-success'

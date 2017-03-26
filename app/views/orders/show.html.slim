@@ -1,0 +1,64 @@
+- provide(:title, "##{ @order.id }")
+
+- if current_user.has_role?(:admin)
+  ol.breadcrumb
+    li
+      = link_to 'Orders', manage_orders_path
+    li.active
+      = "##{ @order.id }"
+- elsif current_user.has_role?(:user)
+  ol.breadcrumb
+    li
+      = link_to 'My Order', orders_path
+    li.active
+      = "##{ @order.id }"
+table.table.table-hover.table-condensed
+  - @order.cart.line_items.each do |item|
+    thead
+      tr
+        th style="width:50%"  Product
+        th style="width:10%"  Price
+        th style="width:8%"  Quantity
+        th.text-center style="width:22%"  Subtotal
+        th style="width:10%"
+    tbody
+      tr
+        td data-th="Product"
+          .row
+            .col-sm-2.hidden-xs
+              a href="#{product_path(item.product)}"
+                img.img-responsive alt="..." src="#{item.product.image}" /
+            .col-sm-10
+              h4.nomargin
+                a href="#{product_path(item.product)}"
+                  = item.product.title
+              .mycap
+                p
+                  a href="#{product_path(item.product)}"
+                    = item.product.description
+        td data-th="Price"
+          = number_to_currency item.product.price
+        td data-th="Quantity"
+          = item.quantity
+        td.text-center data-th="Subtotal"
+          = number_to_currency item.total_price
+        td.actions data-th=""
+          = link_to '', line_item_path(item), method: :delete, remote: true, class: 'glyphicon glyphicon-remove'
+
+  tfoot
+    tr.visible-xs
+      td.text-center
+        strong
+    tr
+      td
+        a.btn.btn-warning href="#{products_path}"
+          i.fa.fa-angle-left
+          | Continue Shopping
+      td.hidden-xs colspan="2"
+      td.hidden-xs.text-center
+        strong
+          = number_to_currency @cart.total_price
+      td
+        a.btn.btn-success.btn-block href="#{ new_order_path }"
+          | Checkout
+          i.fa.fa-angle-right

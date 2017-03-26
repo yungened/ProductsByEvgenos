@@ -12,6 +12,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :messages
+  has_many :orders
 
   default_scope { order(id: :asc) }
 

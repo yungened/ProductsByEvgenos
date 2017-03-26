@@ -21,6 +21,10 @@ class AdminController < ApplicationController
     @users = User.all.paginate(page: params[:page], per_page: 7)
   end
 
+  def manage_orders
+    @orders = Order.all.paginate(page: params[:page], per_page: 7)
+  end
+
   def update
     @user = User.find(params[:id])
     @user.remove_role @user.roles.first.name

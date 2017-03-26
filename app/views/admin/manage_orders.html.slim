@@ -1,0 +1,51 @@
+- provide(:title, 'Orders')
+
+ol.breadcrumb
+  li
+    = link_to 'DASHBOARD', admin_path
+  li.active Orders
+
+.container
+  .row
+    .table-responsive
+      table.table.table-bordered
+        thead
+          tr
+            th #
+            th Full Name
+            th Email
+            th Phone Number
+            th Date
+            th Price
+            th Actions
+            th Status
+        tbody
+          - @orders.each do |order|
+            tr
+              td
+                = link_to order.id, order_path(order)
+              td
+                = "#{order.user.first_name} #{order.user.last_name}"
+              td
+                = order.user.email
+              td
+                = order.user.phone_number
+              td
+                = order.created_at.localtime.strftime('%d %b %Y %r')
+              td
+                = number_to_currency order.cart.total_price
+              td
+                span
+                  = link_to "processing", change_role_path(order, 0), method: :patch, class: 'label label-info'
+                span
+                  = link_to "paid", change_role_path(order, 1), method: :patch, class: 'label label-success'
+                span
+                  = link_to "shipped", change_role_path(order, 2), method: :patch, class: 'label label-danger'
+                span
+                  = link_to "completed", change_role_path(order, 3), method: :patch, class: 'label label-primary'
+              td
+                span.label.label-info
+                  = order.status
+div.text-center
+  = will_paginate @orders, renderer: BootstrapPagination::Rails, inner_window: 1
+

@@ -48,11 +48,11 @@ ActiveRecord::Schema.define(version: 20170323125039658785) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.decimal  "subtotal"
-    t.decimal  "total"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "cart_id"
+    t.integer  "status",     default: 0
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
@@ -81,6 +81,19 @@ ActiveRecord::Schema.define(version: 20170323125039658785) do
     t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
+  create_table "seems_rateable_rates", force: :cascade do |t|
+    t.integer  "rater_id"
+    t.string   "rateable_type"
+    t.integer  "rateable_id"
+    t.float    "stars",         null: false
+    t.string   "dimension"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["dimension"], name: "index_seems_rateable_rates_on_dimension", using: :btree
+    t.index ["rateable_id", "rateable_type"], name: "index_seems_rateable_rates_on_rateable_id_and_rateable_type", using: :btree
+    t.index ["rater_id"], name: "index_seems_rateable_rates_on_rater_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -100,9 +113,6 @@ ActiveRecord::Schema.define(version: 20170323125039658785) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "city"
-    t.string   "region"
-    t.string   "country"
-    t.string   "post_code"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

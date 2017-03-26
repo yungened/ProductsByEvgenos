@@ -12,7 +12,7 @@
     h1.text-center
       | On request "
       = params[:q][:title_cont]
-      | " was not found
+      | " was nothing found
   - @products.each do |product|
     .col-sm-4.col-lg-4.col-md-4
       .thumbnail
