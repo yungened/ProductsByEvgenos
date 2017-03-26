@@ -1,9 +1,7 @@
-- provide(:title, 'Cart')
-h1 style='text-align: center;' Your cart
-
-table#cart.table.table-hover.table-condensed
-  - @cart.each do |id, quantity|
-    - product = get_product_by_id(id)
+table.table.table-hover.table-condensed
+  - if @cart.line_items.empty?
+    h3.text-center Cart is empty
+  - @cart.line_items.each do |item|
     thead
       tr
         th style="width:50%"  Product
@@ -16,28 +14,27 @@ table#cart.table.table-hover.table-condensed
         td data-th="Product"
           .row
             .col-sm-2.hidden-xs
-              a href="#{product_path(id)}"
-                img.img-responsive alt="..." src="#{product.image}" /
+              a href="#{product_path(item.product)}"
+                img.img-responsive alt="..." src="#{item.product.image}" /
             .col-sm-10
               h4.nomargin
-                a href="#{product_path(id)}"
-                  = product.title
+                a href="#{product_path(item.product)}"
+                  = item.product.title
               .mycap
                 p
-                  a href="#{product_path(id)}"
-                    = product.description
+                  a href="#{product_path(item.product)}"
+                    = item.product.description
         td data-th="Price"
-          = number_to_currency product.price
+          = number_to_currency item.product.price
         td data-th="Quantity"
-          = form_for :cart, url: cart_update_path(id), method: :patch do |f|
-            = f.number_field 'qty', value: quantity, class: 'form-control'
+          = form_for :line_item, url: line_item_path(item), method: :patch do |f|
+            = f.number_field 'quantity', value: item.quantity, class: 'form-control'
             div.text-center
               = f.button '', type: 'submit', class: 'glyphicon glyphicon-refresh'
         td.text-center data-th="Subtotal"
-          = number_to_currency product.price * quantity
+          = number_to_currency item.total_price
         td.actions data-th=""
-          /= link_to '', cart_update_path(id), class: 'glyphicon glyphicon-refresh'
-          = link_to '', cart_des_path(id), method: :delete, class: 'glyphicon glyphicon-trash', data: {confirm: 'Are you sure?'}
+          = link_to '', line_item_path(item), method: :delete, remote: true, class: 'glyphicon glyphicon-remove'
 
   tfoot
     tr.visible-xs
@@ -51,7 +48,7 @@ table#cart.table.table-hover.table-condensed
       td.hidden-xs colspan="2"
       td.hidden-xs.text-center
         strong
-          = number_to_currency @total
+          = number_to_currency @cart.total_price
       td
         a.btn.btn-success.btn-block href="#{ new_order_path }"
           | Checkout

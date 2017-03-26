@@ -21,27 +21,17 @@
         = @product.title
       p
         = @product.description
-      = link_to 'Add to cart', cart_add_path(@product), method: :post, class: 'btn btn-success'
-      i.fa.fa-cart-plus.fa-2x
+      = button_to 'Add to Cart', line_items_path(product_id: @product),
+              remote: true, class: 'btn btn-success'
     .ratings
       p.pull-right
         = "#{ @product.messages.size } reviews"
       p
-        - if @product.messages.empty?
-          - 5.times
-            span.glyphicon.glyphicon-star-empty
-        - else
-          - average = 0
-          - @product.messages.each do |message|
-            - average += message.rating
-          - average /= @product.messages.size
-          - stars = average.round 1
-          - average = average.round
-          - average.times
-            span.glyphicon.glyphicon-star
-          - (5-average).times
-            span.glyphicon.glyphicon-star-empty
-          = " #{ stars } stars"
+        - get_avr_stars(@product.messages).round.times
+          span.glyphicon.glyphicon-star
+        - (5-get_avr_stars(@product.messages).round).times
+          span.glyphicon.glyphicon-star-empty
+        = " #{ get_avr_stars(@product.messages).round(1) } stars"
 
   .well
     .text-right

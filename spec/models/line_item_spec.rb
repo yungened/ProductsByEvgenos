@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "cart/index.html.slim", type: :view do
+RSpec.describe LineItem, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

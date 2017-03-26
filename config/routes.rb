@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :line_items
+  resources :carts
   resources :orders
   resources :categories
   resources :products do
@@ -6,12 +8,6 @@ Rails.application.routes.draw do
   end
 
   scope ':locale', locale: /#{ I18n.available_locales.join('|') }/ do
-    get 'cart' => 'cart#index', as: 'cart'
-    delete 'cart/:id' => 'cart#destroy', as: 'cart_des'
-    post 'cart/add/:id' => 'cart#add', as: 'cart_add'
-    patch 'cart/update/:id' => 'cart#update', as: 'cart_update'
-
-
     get 'admin' => 'admin#index'
     put 'admin/:id' => 'admin#update'
     patch 'admin/:id' => 'admin#update'

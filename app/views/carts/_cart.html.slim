@@ -1,0 +1,26 @@
+li.dropdown
+  a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+    span.glyphicon.glyphicon-shopping-cart
+    = " #{ @cart.line_items.size } "
+    | - Items
+    span.caret
+  ul.dropdown-menu.dropdown-cart role="menu"
+    - if @cart.line_items.empty?
+      h5.text-center Cart is empty
+    - else
+      - @cart.line_items.each do |item|
+        li
+          span.item
+            span.item-left
+              /a href="#{ product_path(item.product) }"
+              img alt="" src="#{ item.product.image }"
+              span.item-info
+                span
+                  = item.product.title
+                span
+                  = number_to_currency item.product.price
+            span.item-right
+              = link_to '', line_item_path(item), method: :delete, remote: true, class: 'glyphicon glyphicon-remove'
+    li.divider
+    li
+      a.text-center href="#{ carts_path }"  View Cart

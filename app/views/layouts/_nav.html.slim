@@ -18,6 +18,9 @@ nav.navbar.navbar-default.navbar-fixed-top
             li class=("#{ 'active' if current_page?(admin_path) }")
               a.glyphicon.glyphicon-lock href="#{admin_path}"
                 = t 'admin'
+
+      #cart.nav.navbar-nav.navbar-right
+        = render @cart
       ul.nav.navbar-nav.navbar-right
         li.dropdown
           a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
@@ -26,25 +29,21 @@ nav.navbar.navbar-default.navbar-fixed-top
             span.caret
           ul.dropdown-menu
             li class=("#{ 'active' if I18n.locale == :en }")
-              = link_to_unless_current 'En', locale: 'en'
+              = link_to t('eng'), locale: 'en'
             li class=("#{ 'active' if I18n.locale == :uk }")
-              = link_to_unless_current 'Uk', locale: 'uk'
+              = link_to t('ukr'), locale: 'uk'
         - if current_user
-          li.dropdown class=("#{ 'active' if current_page?(edit_user_registration_path) || current_page?(cart_path) }")
+          li.dropdown class=("#{ 'active' if current_page?(edit_user_registration_path)}")
             a.dropdown-toggle.glyphicon.glyphicon-user aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
               = t 'profile'
               span.caret
             ul.dropdown-menu
-              li class=("#{ 'active' if current_page?(cart_path) }")
-                = link_to t('cart') + "(#{get_cart_size})", cart_path, class: 'glyphicon glyphicon-shopping-cart'
               li class=("#{ 'active' if current_page?(edit_user_registration_path) }")
                 = link_to ' ' + current_user.email, edit_user_registration_path, class: 'glyphicon glyphicon-user'
               li.divider role="separator"
               li
                 = link_to t('logout'), destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out'
         - else
-          li class=("#{ 'active' if current_page?(cart_path) }")
-            = link_to t('cart') + "(#{get_cart_size})", cart_path, class: 'glyphicon glyphicon-shopping-cart'
           li class=("#{'active' if current_page?(new_user_registration_path)}")
             = link_to t('signup'), new_user_registration_path, class: 'glyphicon glyphicon-registration-mark'
           li class=("#{'active' if current_page?(new_user_session_path)}")

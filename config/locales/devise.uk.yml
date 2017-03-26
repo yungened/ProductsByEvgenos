@@ -4,3 +4,5 @@ uk:
       signed_in: "Ви успішно увійшли."
       signed_out: "Ви успішно вийшли."
       already_signed_out: "Ви успішно вийшли."
+    registrations:
+      signed_up: "Вітаємо! Ви успішно зареєструвались."

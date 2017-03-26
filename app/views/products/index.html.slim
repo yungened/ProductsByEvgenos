@@ -6,42 +6,37 @@
     = f.text_field :title_cont
     = button_tag(type: 'submit', class: 'btn') do
       span.glyphicon.glyphicon-search
-
 .col-md-9
   = render 'layouts/shared/design/carousel'
+  - if @search.result.empty?
+    h1.text-center
+      | On request "
+      = params[:q][:title_cont]
+      | " was nothing found
   - @products.each do |product|
-    a href="#{product_path(product)}"
-      .col-sm-4.col-lg-4.col-md-4
-        .thumbnail
+    .col-sm-4.col-lg-4.col-md-4
+      .thumbnail
+        a href="#{product_path(product)}"
           img alt="" src="#{product.image}"
-          .caption
-            h4.pull-right
-              = number_to_currency product.price
-            h4
-              = product.title
-            p
-              = product.description
-          .ratings
-            p.pull-right
-              = link_to '', cart_add_path(product), method: :post, class: 'glyphicon glyphicon-shopping-cart'
-            p.pull-right
-              = "#{ product.messages.size } reviews"
-            p
-              - if product.messages.empty?
-                - 5.times
-                  span.glyphicon.glyphicon-star-empty
-              - else
-                - average = 0
-                - product.messages.each do |message|
-                  - average += message.rating
-                - average /= product.messages.size
-                - stars = average.round 1
-                - average = average.round
-                - average.times
-                  span.glyphicon.glyphicon-star
-                - (5-average).times
-                  span.glyphicon.glyphicon-star-empty
-                = " #{ stars } stars"
+        .caption
+          h4.pull-right
+            = number_to_currency product.price
+          h4
+            = product.title
+          p
+            = product.description
+        .ratings
+          p.pull-right
+            = button_to 'Add to Cart', line_items_path(product_id: product),
+              remote: true, class: 'btn btn-success'
+          p.pull-right
+            = "#{ product.messages.size } reviews"
+          p
+            - get_avr_stars(product.messages).round.times
+              span.glyphicon.glyphicon-star
+            - (5-get_avr_stars(product.messages).round).times
+              span.glyphicon.glyphicon-star-empty
+            = " #{ get_avr_stars(product.messages).round(1) } stars"
 div.text-center
   = will_paginate @products, renderer: BootstrapPagination::Rails, inner_window: 1
 
