@@ -42,8 +42,6 @@ table.table.table-hover.table-condensed
           = item.quantity
         td.text-center data-th="Subtotal"
           = number_to_currency item.total_price
-        td.actions data-th=""
-          = link_to '', line_item_path(item), method: :delete, remote: true, class: 'glyphicon glyphicon-remove'
 
   tfoot
     tr.visible-xs
@@ -58,7 +56,3 @@ table.table.table-hover.table-condensed
       td.hidden-xs.text-center
         strong
           = number_to_currency @cart.total_price
-      td
-        a.btn.btn-success.btn-block href="#{ new_order_path }"
-          | Checkout
-          i.fa.fa-angle-right
