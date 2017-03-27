@@ -81,19 +81,6 @@ ActiveRecord::Schema.define(version: 20170323125039658785) do
     t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
-  create_table "seems_rateable_rates", force: :cascade do |t|
-    t.integer  "rater_id"
-    t.string   "rateable_type"
-    t.integer  "rateable_id"
-    t.float    "stars",         null: false
-    t.string   "dimension"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["dimension"], name: "index_seems_rateable_rates_on_dimension", using: :btree
-    t.index ["rateable_id", "rateable_type"], name: "index_seems_rateable_rates_on_rateable_id_and_rateable_type", using: :btree
-    t.index ["rater_id"], name: "index_seems_rateable_rates_on_rater_id", using: :btree
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
